@@ -1,0 +1,8 @@
+# 対応した
+config.py [key] [value]		コンフィグの値をセット
+
+# これから対応する
+parse.py [html filename]	filenameで指定されたHTMLの共通パーツを解析して登録する
+refresh.py					共通パーツを一括更新
+mv.py						ファイル名の変更（ディレクトリ移動）
+ 
