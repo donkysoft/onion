@@ -7,12 +7,15 @@ import re
 
 dirname = os.path.dirname(os.path.abspath(__file__))
 
+sys.path.append(os.path.join(dirname, 'libs'))
+import pathtool
+
 def main():
-    argvs = sys.argv
-    argc = len(argvs)
+    argv = sys.argv
+    argc = len(argv)
 
     if argc < 2:
-        print 'Usage: # python %s [filename]' % argvs[0]
+        print 'Usage: # python %s [filename]' % argv[0]
         quit()
 
     config = ConfigParser.SafeConfigParser()
@@ -28,22 +31,35 @@ def main():
         except Exception, e:
             print 'error: failed to get the configuration.'
             quit()
-        file = os.path.join(os.getcwdu(), path, argvs[1])
+        target = argv[1]
+        if target.find(path + os.sep) == 0:
+            cnt = len(path + os.sep)
+            target = target[cnt:]
+        file = os.path.join(os.getcwdu(), path, target)
         if os.path.isfile(file) == False:
             print 'error: does not exist [%s].' % file
             quit()
         f = open(file)
         html = f.read()
         f.close()
+        # filedir
+        filedir = []
+        if (os.sep in target) == True:
+            arr = target.split(os.sep)
+            del arr[-1]
+            filedir = arr[:]
         # looking for template tag
-        tag_names = re.findall("<!--onion_tpl:(.*?)-->", html)
+        tag_names = re.findall(r"<!--onion_tpl:(.*?)-->", html)
         if len(tag_names) <= 0:
             print 'onion_tpl not found.'
             quit()
         for tag_name in tag_names:
-            m = re.search("<!--onion_tpl:" + tag_name + "-->((?:.|\n)+)<!--\/onion_tpl-->", html)
+            m = re.search(r"<!--onion_tpl:" + tag_name + r"-->((?:.|\n)+)<!--\/onion_tpl:" + tag_name + r"-->", html)
             if m:
                 inner_html = m.group(1)
+                # adjust path
+                inner_html = pathtool.set_adjust_path(inner_html, filedir)
+                # save file
                 file = os.path.join(dirname, 'item', tag_name + '.tpl')
                 try:
                     f = open(file, 'w')

@@ -1,8 +1,8 @@
-# 対応した
-config.py [key] [value]			コンフィグの値をセット
-make.py [template_filename]	filenameで指定されたHTMLの共通パーツを解析して登録する
+# 一応対応した
+config.py [key] [value]       コンフィグの値をセット
+make.py [filename]            filenameで指定されたHTMLの共通パーツを解析して登録する
+refresh.py                    共通パーツを一括更新
 
 # これから対応する
-refresh.py						共通パーツを一括更新
-mv.py							ファイル名の変更（ディレクトリ移動）
+mv.py [filename] [targetname] ファイル名の変更（ディレクトリ移動）
  
