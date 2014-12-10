@@ -15,7 +15,7 @@ def main():
     argc = len(argv)
 
     if argc < 2:
-        print 'Usage: # python %s [filename]' % argv[0]
+        print 'Usage: python %s [filename]' % argv[0]
         quit()
 
     config = ConfigParser.SafeConfigParser()

@@ -11,8 +11,8 @@ def main():
     argc = len(argv)
 
     if argc < 2:
-        print 'Usage: # python %s [key]' % argv[0]
-        print 'Usage: # python %s [key] [value]' % argv[0]
+        print 'Usage: python %s [key]' % argv[0]
+        print 'Usage: python %s [key] [value]' % argv[0]
         quit()
 
     config = ConfigParser.SafeConfigParser()
