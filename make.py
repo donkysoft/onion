@@ -14,6 +14,9 @@ def main():
     argv = sys.argv
     argc = len(argv)
 
+    if argc == 1:
+        argv.append('index.html')   # default param set_adjust_path
+        argc = len(argv)
     if argc < 2:
         print 'Usage: python %s [filename]' % argv[0]
         quit()
